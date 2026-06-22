@@ -18,110 +18,45 @@
     --gris-borde: #D8DCE3;
     --texto: #1A202C;
     --texto-suave: #5A6072;
-    --blanco: #FFFFFF;
     --radio: 6px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--gris-fondo);
-    color: var(--texto);
-    font-size: 14px;
-    line-height: 1.5;
-  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--gris-fondo); color: var(--texto); font-size: 14px; line-height: 1.5; }
 
   /* HEADER */
-  header {
-    background: var(--azul);
-    color: white;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
+  header { background: var(--azul); color: white; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.25); position: sticky; top: 0; z-index: 100; }
   .header-left { display: flex; align-items: center; gap: 14px; }
   .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: #90CAF9; }
   .header-title { font-size: 16px; font-weight: 600; color: white; }
   .header-sub { font-size: 11px; color: #90CAF9; margin-top: 1px; }
   .fecha-hora { font-size: 12px; color: #90CAF9; text-align: right; }
 
+  /* TABS DE VISTA */
+  .nav-tabs { background: white; border-bottom: 2px solid var(--gris-borde); padding: 0 24px; display: flex; gap: 0; position: sticky; top: 58px; z-index: 99; }
+  .nav-tab { padding: 13px 22px; font-size: 13px; font-weight: 600; color: var(--texto-suave); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.15s; }
+  .nav-tab:hover { color: var(--azul); }
+  .nav-tab.activo { color: var(--azul); border-bottom-color: var(--azul); }
+
   /* CONTROLS BAR */
-  .controls {
-    background: white;
-    border-bottom: 1px solid var(--gris-borde);
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    position: sticky;
-    top: 58px;
-    z-index: 99;
-  }
-
-  .busqueda-wrap { position: relative; flex: 1; min-width: 200px; max-width: 340px; }
-  .busqueda-wrap input {
-    width: 100%;
-    padding: 8px 12px 8px 34px;
-    border: 1.5px solid var(--gris-borde);
-    border-radius: var(--radio);
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .controls { background: white; border-bottom: 1px solid var(--gris-borde); padding: 10px 24px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .busqueda-wrap { position: relative; flex: 1; min-width: 200px; max-width: 320px; }
+  .busqueda-wrap input { width: 100%; padding: 7px 12px 7px 32px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio); font-size: 13px; outline: none; transition: border-color 0.15s; }
   .busqueda-wrap input:focus { border-color: var(--azul-claro); }
-  .busqueda-icon {
-    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-    color: var(--texto-suave); font-size: 14px; pointer-events: none;
-  }
-
-  .filtro-btn {
-    padding: 7px 14px; border: 1.5px solid var(--gris-borde);
-    border-radius: var(--radio); background: white; cursor: pointer;
-    font-size: 12px; font-weight: 600; color: var(--texto-suave);
-    transition: all 0.15s;
-  }
+  .busqueda-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--texto-suave); font-size: 13px; pointer-events: none; }
+  .filtro-btn { padding: 6px 13px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio); background: white; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--texto-suave); transition: all 0.15s; }
   .filtro-btn.activo { border-color: var(--azul); color: var(--azul); background: #EBF2FF; }
   .filtro-btn:hover:not(.activo) { border-color: #aaa; color: var(--texto); }
-
   .label-filtro { font-size: 12px; color: var(--texto-suave); font-weight: 600; }
-
-  .exportar-btn {
-    margin-left: auto;
-    padding: 7px 16px; background: var(--verde); color: white;
-    border: none; border-radius: var(--radio); cursor: pointer;
-    font-size: 12px; font-weight: 600;
-    transition: background 0.15s;
-  }
+  .exportar-btn { margin-left: auto; padding: 7px 16px; background: var(--verde); color: white; border: none; border-radius: var(--radio); cursor: pointer; font-size: 12px; font-weight: 600; transition: background 0.15s; }
   .exportar-btn:hover { background: #156038; }
 
-  /* SUMMARY CARDS */
-  .resumen {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 12px;
-    padding: 16px 24px 0;
-  }
-
-  .card {
-    background: white;
-    border-radius: var(--radio);
-    padding: 14px 16px;
-    border-left: 4px solid transparent;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  }
+  /* RESUMEN CARDS */
+  .resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; padding: 16px 24px 0; }
+  .card { background: white; border-radius: var(--radio); padding: 14px 16px; border-left: 4px solid transparent; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
   .card.critico { border-left-color: var(--rojo); }
   .card.alerta  { border-left-color: var(--amarillo); }
   .card.estable { border-left-color: var(--verde); }
   .card.total   { border-left-color: var(--azul); }
-
   .card-num { font-size: 28px; font-weight: 800; line-height: 1.1; }
   .card.critico .card-num { color: var(--rojo); }
   .card.alerta  .card-num { color: var(--amarillo); }
@@ -129,148 +64,86 @@
   .card.total   .card-num { color: var(--azul); }
   .card-label { font-size: 11px; font-weight: 600; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
 
-  /* TABLE SECTION */
-  .tabla-wrap {
-    padding: 16px 24px 32px;
-    overflow-x: auto;
-  }
-
-  .seccion-titulo {
-    font-size: 12px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.8px; color: var(--texto-suave);
-    padding: 8px 0 6px;
-    border-bottom: 2px solid var(--gris-borde);
-    margin-bottom: 8px;
-    display: flex; align-items: center; gap: 8px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: var(--radio);
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    margin-bottom: 28px;
-    min-width: 860px;
-  }
-
+  /* TABLA */
+  .tabla-wrap { padding: 16px 24px 32px; overflow-x: auto; }
+  .seccion-titulo { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--texto-suave); padding: 8px 0 6px; border-bottom: 2px solid var(--gris-borde); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radio); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-bottom: 28px; min-width: 820px; }
   thead tr { background: var(--azul); color: white; }
-  thead th {
-    padding: 10px 12px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
+  thead th { padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
   thead th.center { text-align: center; }
-
   tbody tr { border-bottom: 1px solid #EEF0F3; transition: background 0.1s; }
   tbody tr:hover { background: #F7F9FC; }
   tbody tr:last-child { border-bottom: none; }
-
   td { padding: 9px 12px; vertical-align: middle; font-size: 13px; }
   td.center { text-align: center; }
-
-  .codigo-chip {
-    display: inline-block;
-    background: #EBF2FF;
-    color: var(--azul);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
-
-  .desc { color: var(--texto); max-width: 280px; }
-
-  .num { font-variant-numeric: tabular-nums; font-size: 13px; }
+  .codigo-chip { display: inline-block; background: #EBF2FF; color: var(--azul); font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
+  .desc { color: var(--texto); max-width: 260px; }
+  .num { font-variant-numeric: tabular-nums; }
   .num-prom { color: var(--texto-suave); }
   .num-recom { color: var(--azul-claro); font-weight: 600; }
+  .nota-cap { font-size: 10px; color: var(--texto-suave); font-style: italic; }
 
-  /* INPUT DE PRODUCCIÓN */
-  .prod-input {
-    width: 90px;
-    padding: 5px 8px;
-    border: 1.5px solid var(--gris-borde);
-    border-radius: 4px;
-    font-size: 13px;
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  /* INPUT PRODUCCIÓN */
+  .prod-input { width: 90px; padding: 5px 8px; border: 1.5px solid var(--gris-borde); border-radius: 4px; font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; outline: none; transition: border-color 0.15s; }
   .prod-input:focus { border-color: var(--azul-claro); box-shadow: 0 0 0 3px rgba(42,82,152,0.12); }
   .prod-input.modificado { background: #EBF2FF; border-color: var(--azul-claro); }
 
-  /* DÍAS DISPONIBLES */
-  .dias-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 60px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
+  /* BADGE DÍAS */
+  .dias-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 62px; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap; }
   .dias-critico   { background: var(--rojo-suave); color: var(--rojo); }
   .dias-alerta    { background: var(--amarillo-suave); color: var(--amarillo); }
   .dias-estable   { background: var(--verde-suave); color: var(--verde); }
   .dias-sin-datos { background: #F0F0F0; color: #999; font-weight: 400; }
+  .dias-bar-wrap  { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+  .dias-bar-bg    { flex: 1; height: 6px; background: #E8E8E8; border-radius: 3px; overflow: hidden; }
+  .dias-bar-fill  { height: 100%; border-radius: 3px; transition: width 0.3s; }
 
-  /* BARRA DE PROGRESO DÍAS */
-  .dias-bar-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 120px;
-  }
-  .dias-bar-bg {
-    flex: 1; height: 6px;
-    background: #E8E8E8;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .dias-bar-fill {
-    height: 100%; border-radius: 3px;
-    transition: width 0.3s;
-  }
+  .no-resultados { text-align: center; padding: 40px; color: var(--texto-suave); font-size: 14px; }
 
-  .no-resultados {
-    text-align: center;
-    padding: 40px;
-    color: var(--texto-suave);
-    font-size: 14px;
-  }
+  /* ── PLANIFICACIÓN SEMANAL ── */
+  #vista-planificacion { display: none; }
+  .plan-wrap { padding: 16px 24px 40px; }
+
+  .semana-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .semana-nav h2 { font-size: 16px; font-weight: 700; color: var(--azul); flex: 1; }
+  .btn-semana { padding: 7px 16px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio); background: white; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--texto-suave); transition: all 0.15s; }
+  .btn-semana:hover { border-color: var(--azul); color: var(--azul); }
+
+  /* Calendario semanal */
+  .cal-grid { display: grid; grid-template-columns: 220px repeat(6, 1fr); gap: 0; background: white; border-radius: var(--radio); box-shadow: 0 1px 4px rgba(0,0,0,0.07); overflow: hidden; margin-bottom: 24px; min-width: 900px; }
+  .cal-header { background: var(--azul); color: white; padding: 10px 10px; font-size: 11px; font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: 0.4px; border-right: 1px solid rgba(255,255,255,0.12); }
+  .cal-header.prod-label { text-align: left; padding-left: 14px; }
+  .cal-header.hoy { background: var(--azul-claro); }
+  .cal-cell { padding: 8px 10px; border-right: 1px solid #EEF0F3; border-bottom: 1px solid #EEF0F3; font-size: 12px; vertical-align: middle; min-height: 40px; }
+  .cal-cell.prod-nombre { background: #F7F9FC; font-weight: 600; font-size: 12px; color: var(--texto); padding-left: 14px; border-right: 2px solid var(--gris-borde); }
+  .cal-cell.prod-nombre small { display: block; font-weight: 400; color: var(--texto-suave); font-size: 10px; margin-top: 1px; }
+  .cal-cell.dia-celda { text-align: center; }
+  .cal-cell.dia-celda.hoy-col { background: #F0F5FF; }
+  .pill-prod { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .pill-critico { background: var(--rojo-suave); color: var(--rojo); }
+  .pill-alerta  { background: var(--amarillo-suave); color: var(--amarillo); }
+  .pill-estable { background: var(--verde-suave); color: var(--verde); }
+  .pill-ok      { background: #E8F0E8; color: #555; font-weight: 400; }
+  .vence-dia    { font-size: 10px; color: var(--texto-suave); margin-top: 2px; }
+
+  /* Leyenda planificación */
+  .leyenda { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+  .leyenda-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--texto-suave); }
+  .leyenda-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* Info box */
+  .info-box { background: #EBF2FF; border-left: 4px solid var(--azul-claro); border-radius: var(--radio); padding: 10px 14px; margin-bottom: 16px; font-size: 12px; color: var(--azul); }
 
   /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 24px; right: 24px;
-    background: var(--verde);
-    color: white;
-    padding: 12px 20px;
-    border-radius: var(--radio);
-    font-size: 13px;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: all 0.3s;
-    z-index: 999;
-  }
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--verde); color: white; padding: 12px 20px; border-radius: var(--radio); font-size: 13px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.2); opacity: 0; transform: translateY(12px); transition: all 0.3s; z-index: 999; }
   .toast.show { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 700px) {
+    .plan-wrap, .tabla-wrap { padding: 12px 12px 24px; }
+    header { padding: 10px 12px; }
+    .nav-tabs { padding: 0 12px; }
     .controls { padding: 10px 12px; }
     .resumen { padding: 12px 12px 0; }
-    .tabla-wrap { padding: 12px 12px 24px; }
-    header { padding: 10px 12px; }
   }
 </style>
 </head>
@@ -287,56 +160,108 @@
   <div class="fecha-hora" id="reloj">—</div>
 </header>
 
-<div class="controls">
-  <span class="label-filtro">Filtrar:</span>
-  <button class="filtro-btn activo" onclick="setFiltro('todos', this)">Todos</button>
-  <button class="filtro-btn" onclick="setFiltro('CRÍTICO', this)">🔴 Crítico</button>
-  <button class="filtro-btn" onclick="setFiltro('ALERTA', this)">🟡 Alerta</button>
-  <button class="filtro-btn" onclick="setFiltro('ESTABLE', this)">🟢 Estable</button>
-  <button class="filtro-btn" onclick="setFiltro('OFICINALES', this)">Oficinales</button>
-  <button class="filtro-btn" onclick="setFiltro('CÁPSULAS', this)">Cápsulas</button>
-
-  <div class="busqueda-wrap">
-    <span class="busqueda-icon">🔍</span>
-    <input type="text" id="busqueda" placeholder="Buscar producto o código…" oninput="renderTablas()">
-  </div>
-
-  <button class="exportar-btn" onclick="exportarCSV()">⬇ Exportar CSV</button>
+<!-- TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab activo" onclick="cambiarVista('stock', this)">📦 Stock y Producción</button>
+  <button class="nav-tab" onclick="cambiarVista('planificacion', this)">📅 Planificación Semanal</button>
 </div>
 
-<div class="resumen" id="resumen"></div>
+<!-- ══════════════════════════════════════════
+     VISTA 1: STOCK Y PRODUCCIÓN
+════════════════════════════════════════════ -->
+<div id="vista-stock">
+  <div class="controls">
+    <span class="label-filtro">Filtrar:</span>
+    <button class="filtro-btn activo" onclick="setFiltro('todos', this)">Todos</button>
+    <button class="filtro-btn" onclick="setFiltro('CRÍTICO', this)">🔴 Crítico</button>
+    <button class="filtro-btn" onclick="setFiltro('ALERTA', this)">🟡 Alerta</button>
+    <button class="filtro-btn" onclick="setFiltro('ESTABLE', this)">🟢 Estable</button>
+    <button class="filtro-btn" onclick="setFiltro('OFICINALES', this)">Oficinales</button>
+    <button class="filtro-btn" onclick="setFiltro('CÁPSULAS', this)">Cápsulas</button>
+    <div class="busqueda-wrap">
+      <span class="busqueda-icon">🔍</span>
+      <input type="text" id="busqueda" placeholder="Buscar producto o código…" oninput="renderTablas()">
+    </div>
+    <button class="exportar-btn" onclick="exportarCSV()">⬇ Exportar CSV</button>
+  </div>
 
-<div class="tabla-wrap" id="contenido"></div>
+  <div class="resumen" id="resumen"></div>
+  <div class="tabla-wrap" id="contenido"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     VISTA 2: PLANIFICACIÓN SEMANAL
+════════════════════════════════════════════ -->
+<div id="vista-planificacion">
+  <div class="plan-wrap">
+    <div class="semana-nav">
+      <button class="btn-semana" onclick="cambiarSemana(-1)">◀ Semana anterior</button>
+      <h2 id="titulo-semana">—</h2>
+      <button class="btn-semana" onclick="cambiarSemana(1)">Semana siguiente ▶</button>
+    </div>
+
+    <div class="info-box">
+      💡 La planificación muestra los productos cuyo stock (actual + producción ingresada) se agotará durante la semana visualizada, considerando lunes a sábado. Los productos se ordenan por urgencia: primero los que se agotan antes.
+    </div>
+
+    <div class="leyenda">
+      <strong style="font-size:12px;color:var(--texto-suave)">Leyenda:</strong>
+      <div class="leyenda-item"><div class="leyenda-dot" style="background:var(--rojo)"></div> Se agota este día</div>
+      <div class="leyenda-item"><div class="leyenda-dot" style="background:var(--amarillo)"></div> Quedan 1–3 días</div>
+      <div class="leyenda-item"><div class="leyenda-dot" style="background:var(--verde)"></div> Stock OK ese día</div>
+      <div class="leyenda-item"><div class="leyenda-dot" style="background:#ccc"></div> Ya agotado (días previos)</div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <div class="cal-grid" id="calendario"></div>
+    </div>
+
+    <div id="plan-sin-datos" class="no-resultados" style="display:none">
+      No hay productos con producción ingresada o con stock bajo en esta semana.<br>
+      <small>Ingresa cantidades de producción en la pestaña "Stock y Producción" para ver la planificación.</small>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────────
-// DATOS EMBEBIDOS (extraídos de tus archivos)
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// DATOS
+// ═══════════════════════════════════════════════════════
 const PRODUCTOS = [{"codigo":"HB-244","descripcion":"HB-244 ALBEN+SECNI ADULTO","ventaPromedio":62.0,"cantidadRecomendada":83,"stockActual":0,"categoria":"OFICINALES"},{"codigo":"HB-140","descripcion":"HB-140 LOCION PEDICULOSISx60ML","ventaPromedio":22.0,"cantidadRecomendada":30,"stockActual":10,"categoria":"OFICINALES"},{"codigo":"HB-057","descripcion":"HB-057 REPELENTE PALO SANTO","ventaPromedio":16.0,"cantidadRecomendada":22,"stockActual":0,"categoria":"OFICINALES"},{"codigo":"HB-316","descripcion":"HB-316 PARACETAMOL JBE 3%","ventaPromedio":6.0,"cantidadRecomendada":8,"stockActual":0,"categoria":"OFICINALES"},{"codigo":"HB-284","descripcion":"HB-284 MIEL ROSADA FCOX30CC","ventaPromedio":5.0,"cantidadRecomendada":7,"stockActual":3,"categoria":"OFICINALES"},{"codigo":"HB-188","descripcion":"HB-188 ESTOMAGOL","ventaPromedio":914.0,"cantidadRecomendada":1219,"stockActual":99,"categoria":"OFICINALES"},{"codigo":"HB-239","descripcion":"HB-239 JABON BIOAZUFRE+AC.SALI","ventaPromedio":274.0,"cantidadRecomendada":366,"stockActual":27,"categoria":"OFICINALES"},{"codigo":"HB-199","descripcion":"HB-199 KIT SINBICHOS ADULTO","ventaPromedio":650.0,"cantidadRecomendada":867,"stockActual":79,"categoria":"OFICINALES"},{"codigo":"HB-160","descripcion":"HB-160 ACEITE MINERAL 250ML","ventaPromedio":257.0,"cantidadRecomendada":343,"stockActual":13,"categoria":"OFICINALES"},{"codigo":"HB-200","descripcion":"HB-200 ALBEN+SECNI PEDIATR","ventaPromedio":300.0,"cantidadRecomendada":400,"stockActual":6,"categoria":"OFICINALES"},{"codigo":"HB-098","descripcion":"HB-098 CHAMPU ANTICASPA CLOBET","ventaPromedio":302.0,"cantidadRecomendada":403,"stockActual":37,"categoria":"OFICINALES"},{"codigo":"HB-214","descripcion":"HB-214 FORMULA 7 ADULTO","ventaPromedio":229.0,"cantidadRecomendada":306,"stockActual":24,"categoria":"OFICINALES"},{"codigo":"HB-240","descripcion":"HB-240 JABON KETO+VIT.E","ventaPromedio":585.0,"cantidadRecomendada":780,"stockActual":40,"categoria":"OFICINALES"},{"codigo":"HB-055","descripcion":"HB-055 JARABE-METABOLITO","ventaPromedio":270.0,"cantidadRecomendada":360,"stockActual":14,"categoria":"OFICINALES"},{"codigo":"HB-241","descripcion":"HB-241 JABON LECHE","ventaPromedio":627.0,"cantidadRecomendada":836,"stockActual":134,"categoria":"OFICINALES"},{"codigo":"HB-227","descripcion":"HB-227 PURGANTE ADULTO/JOVEN","ventaPromedio":221.0,"cantidadRecomendada":295,"stockActual":56,"categoria":"OFICINALES"},{"codigo":"HB-194","descripcion":"HB-194 OSTEOARTRITIS-GEL","ventaPromedio":771.0,"cantidadRecomendada":1028,"stockActual":8,"categoria":"OFICINALES"},{"codigo":"HB-191","descripcion":"HB-191 MASAJE CIRCULACION","ventaPromedio":137.0,"cantidadRecomendada":183,"stockActual":7,"categoria":"OFICINALES"},{"codigo":"HB-076","descripcion":"HB-076 MASAJ/LOC ANTIVARICOSO","ventaPromedio":65.0,"cantidadRecomendada":87,"stockActual":12,"categoria":"OFICINALES"},{"codigo":"HB-243","descripcion":"HB-243 JABON RESO2%+AC.SAL","ventaPromedio":797.0,"cantidadRecomendada":1063,"stockActual":121,"categoria":"OFICINALES"},{"codigo":"HB-094","descripcion":"HB-094 FORMULA THYMETHIL SPRAY","ventaPromedio":254.0,"cantidadRecomendada":339,"stockActual":50,"categoria":"OFICINALES"},{"codigo":"HB-233","descripcion":"HB-233 TINTURA BENJUI 1L","ventaPromedio":23.0,"cantidadRecomendada":31,"stockActual":2,"categoria":"OFICINALES"},{"codigo":"HB-095","descripcion":"HB-095 CREMA HUMECTANTE","ventaPromedio":488.0,"cantidadRecomendada":651,"stockActual":59,"categoria":"OFICINALES"},{"codigo":"HB-154","descripcion":"HB-154 BOTICICLOVIR 5% 19g","ventaPromedio":31.0,"cantidadRecomendada":42,"stockActual":6,"categoria":"OFICINALES"},{"codigo":"HB-228","descripcion":"HB-228 PURGANTE PED (6-7)","ventaPromedio":78.0,"cantidadRecomendada":104,"stockActual":8,"categoria":"OFICINALES"},{"codigo":"HB-176","descripcion":"HB-176 ACEIT CLORU+COLAGENO","ventaPromedio":97.0,"cantidadRecomendada":130,"stockActual":9,"categoria":"OFICINALES"},{"codigo":"HB-153","descripcion":"HB-153 SUPER HUESITOS PEDIATRI","ventaPromedio":126.0,"cantidadRecomendada":168,"stockActual":19,"categoria":"OFICINALES"},{"codigo":"HB-156","descripcion":"HB-156 GEL DE BAÑO PEDIATRICO","ventaPromedio":298.0,"cantidadRecomendada":398,"stockActual":33,"categoria":"OFICINALES"},{"codigo":"HB-211","descripcion":"HB-211 FORMULA MULTIVIT PEDIAT","ventaPromedio":249.0,"cantidadRecomendada":332,"stockActual":31,"categoria":"OFICINALES"},{"codigo":"HB-233","descripcion":"HB-233 TINTURA BENJUI 1/2L","ventaPromedio":27.0,"cantidadRecomendada":36,"stockActual":2,"categoria":"OFICINALES"},{"codigo":"HB-210","descripcion":"HB-210 FORMULA MULTIVIT ADULTO","ventaPromedio":179.0,"cantidadRecomendada":239,"stockActual":28,"categoria":"OFICINALES"},{"codigo":"HB-238","descripcion":"HB-238 JABON AVENA","ventaPromedio":281.0,"cantidadRecomendada":375,"stockActual":18,"categoria":"OFICINALES"},{"codigo":"HB-160","descripcion":"HB-160 ACEITE MINERAL 500ML","ventaPromedio":79.0,"cantidadRecomendada":106,"stockActual":11,"categoria":"OFICINALES"},{"codigo":"HB-161","descripcion":"HB-161 ACEI VASELINA 250ML","ventaPromedio":26.0,"cantidadRecomendada":35,"stockActual":5,"categoria":"OFICINALES"},{"codigo":"HB-160","descripcion":"HB-160 ACEITE MINERAL 1LT","ventaPromedio":67.0,"cantidadRecomendada":90,"stockActual":5,"categoria":"OFICINALES"},{"codigo":"HB-091","descripcion":"HB-091 CREMA CICATRIZANTE REGE","ventaPromedio":460.0,"cantidadRecomendada":614,"stockActual":28,"categoria":"OFICINALES"},{"codigo":"HB-228","descripcion":"HB-228 PURGANTE PED (8-9)","ventaPromedio":73.0,"cantidadRecomendada":98,"stockActual":11,"categoria":"OFICINALES"},{"codigo":"HB-125","descripcion":"HB-125 JBE/INMUNOLOGICO","ventaPromedio":165.0,"cantidadRecomendada":220,"stockActual":21,"categoria":"OFICINALES"},{"codigo":"HB-113","descripcion":"HB-113 FILTROS SOLARES","ventaPromedio":414.0,"cantidadRecomendada":552,"stockActual":77,"categoria":"OFICINALES"},{"codigo":"HB-234","descripcion":"HB-234 VASELINAX25GR","ventaPromedio":40.0,"cantidadRecomendada":54,"stockActual":15,"categoria":"OFICINALES"},{"codigo":"HB-136","descripcion":"HB-136 PIPERIDIN+GC JBE","ventaPromedio":99.0,"cantidadRecomendada":132,"stockActual":2,"categoria":"OFICINALES"},{"codigo":"HB-228","descripcion":"HB-228 PURGANTE PED (4-5)","ventaPromedio":60.0,"cantidadRecomendada":80,"stockActual":7,"categoria":"OFICINALES"},{"codigo":"HB-051","descripcion":"HB-051 BLOQUEADOR SOLAR CREMA","ventaPromedio":284.0,"cantidadRecomendada":379,"stockActual":83,"categoria":"OFICINALES"},{"codigo":"HB-233","descripcion":"HB-233 TINTURA BENJUI 1/4L","ventaPromedio":31.0,"cantidadRecomendada":42,"stockActual":0,"categoria":"OFICINALES"},{"codigo":"HB-228","descripcion":"HB-228 PURGANTE PED (10-11)","ventaPromedio":81.0,"cantidadRecomendada":108,"stockActual":12,"categoria":"OFICINALES"},{"codigo":"HB-112","descripcion":"HB-112 CHAMPU ANTICASPA","ventaPromedio":190.0,"cantidadRecomendada":254,"stockActual":40,"categoria":"OFICINALES"},{"codigo":"HB-116","descripcion":"HB-116 RECALCIFICANTE FCOx60","ventaPromedio":51.0,"cantidadRecomendada":68,"stockActual":6,"categoria":"OFICINALES"},{"codigo":"HB-237","descripcion":"HB-237 JABON AC.LACTICO","ventaPromedio":443.0,"cantidadRecomendada":591,"stockActual":49,"categoria":"OFICINALES"},{"codigo":"HB-155","descripcion":"HB-155 GEL DE BAÑO INTIMO DAMA","ventaPromedio":148.0,"cantidadRecomendada":198,"stockActual":32,"categoria":"OFICINALES"},{"codigo":"HB-192","descripcion":"HB-192 MASAJE ENERGIZANTE","ventaPromedio":82.0,"cantidadRecomendada":110,"stockActual":22,"categoria":"OFICINALES"},{"codigo":"HB-206","descripcion":"HB-206 MASAJE DOLOR CABEZA","ventaPromedio":38.0,"cantidadRecomendada":51,"stockActual":11,"categoria":"OFICINALES"},{"codigo":"HB-162","descripcion":"HB-162 F-AGUA DE ROSASX100ML","ventaPromedio":207.0,"cantidadRecomendada":276,"stockActual":22,"categoria":"OFICINALES"},{"codigo":"HB-081","descripcion":"HB-081 CREMA HEMORROIDES","ventaPromedio":27.0,"cantidadRecomendada":36,"stockActual":8,"categoria":"OFICINALES"},{"codigo":"HB-215","descripcion":"HB-215 FORMULA 7 PEDIATRICA","ventaPromedio":61.0,"cantidadRecomendada":82,"stockActual":21,"categoria":"OFICINALES"},{"codigo":"HB-228","descripcion":"HB-228 PURGANTE PED (2-3)","ventaPromedio":36.0,"cantidadRecomendada":48,"stockActual":11,"categoria":"OFICINALES"},{"codigo":"HB-050","descripcion":"HB-050 SHAMPOO ANTICASPA","ventaPromedio":163.0,"cantidadRecomendada":218,"stockActual":32,"categoria":"OFICINALES"},{"codigo":"HB-282","descripcion":"HB-282 JARABE GRANADA FCOX30ML","ventaPromedio":6.0,"cantidadRecomendada":8,"stockActual":2,"categoria":"OFICINALES"},{"codigo":"HB-306","descripcion":"HB-306 J ZANAHORIA CURCUMA","ventaPromedio":35.0,"cantidadRecomendada":47,"stockActual":17,"categoria":"OFICINALES"},{"codigo":"HB-308","descripcion":"HB-308 JABON CAFE","ventaPromedio":53.0,"cantidadRecomendada":71,"stockActual":16,"categoria":"OFICINALES"},{"codigo":"HB-303","descripcion":"HB-303 JABON CALAMINA","ventaPromedio":22.0,"cantidadRecomendada":30,"stockActual":8,"categoria":"OFICINALES"},{"codigo":"HB-312","descripcion":"HB-312 IBUPROFENO 200 MG/5ML","ventaPromedio":8.0,"cantidadRecomendada":11,"stockActual":4,"categoria":"OFICINALES"},{"codigo":"HB-311","descripcion":"HB-311 250MG/5ML CEFALEXINA","ventaPromedio":43.0,"cantidadRecomendada":58,"stockActual":13,"categoria":"OFICINALES"},{"codigo":"HB-161","descripcion":"HB-161 ACEI VASELINA 500ML","ventaPromedio":11.0,"cantidadRecomendada":15,"stockActual":5,"categoria":"OFICINALES"},{"codigo":"HB-242","descripcion":"HB-242 JABON POLEN+MIEL","ventaPromedio":237.0,"cantidadRecomendada":316,"stockActual":97,"categoria":"OFICINALES"},{"codigo":"HB-309","descripcion":"HB-309 J PEPINO ALOE VERA","ventaPromedio":14.0,"cantidadRecomendada":19,"stockActual":16,"categoria":"OFICINALES"},{"codigo":"HB-161","descripcion":"HB-161 ACEI VASELINA 1000ML","ventaPromedio":7.0,"cantidadRecomendada":10,"stockActual":5,"categoria":"OFICINALES"},{"codigo":"HB-305","descripcion":"HB-305 JABON MELAZA","ventaPromedio":8.0,"cantidadRecomendada":11,"stockActual":6,"categoria":"OFICINALES"},{"codigo":"HB-313","descripcion":"HB-313 AMOX+AC.CLA 312,5MG/5ML","ventaPromedio":23.0,"cantidadRecomendada":31,"stockActual":17,"categoria":"OFICINALES"},{"codigo":"HB-177","descripcion":"HB-177 ACEITE DE MAGNESIO","ventaPromedio":16.0,"cantidadRecomendada":22,"stockActual":15,"categoria":"OFICINALES"},{"codigo":"HB-314","descripcion":"HB-314 AMBROXOL 15MG/5ML 120ML","ventaPromedio":2.0,"cantidadRecomendada":3,"stockActual":3,"categoria":"OFICINALES"},{"codigo":"HB-304","descripcion":"HB-304 JABON ROSA MOSQUETA","ventaPromedio":3.0,"cantidadRecomendada":4,"stockActual":5,"categoria":"OFICINALES"},{"codigo":"HB-307","descripcion":"HB-307 JABON MANZANILLA","ventaPromedio":2.0,"cantidadRecomendada":3,"stockActual":3,"categoria":"OFICINALES"},{"codigo":"HB-310","descripcion":"HB-310 JABON MENTA LIMON","ventaPromedio":7.0,"cantidadRecomendada":10,"stockActual":15,"categoria":"OFICINALES"},{"codigo":"HB-152","descripcion":"HB-152 BOTIDROXICINA JARABE","ventaPromedio":0.0,"cantidadRecomendada":0,"stockActual":3,"categoria":"OFICINALES"},{"codigo":"HB-302","descripcion":"HB-302 J ARCILLA BENTO HLUISA","ventaPromedio":0.0,"cantidadRecomendada":0,"stockActual":10,"categoria":"OFICINALES"},{"codigo":"HB-059","descripcion":"HB-059 BOTIDROXICINA 10MG CAP","ventaPromedio":85.0,"cantidadRecomendada":114,"stockActual":124,"categoria":"CÁPSULAS"},{"codigo":"HB-060","descripcion":"HB-060 BOTIDROXICINA 25MG CAP","ventaPromedio":142.0,"cantidadRecomendada":190,"stockActual":30,"categoria":"CÁPSULAS"},{"codigo":"HB-061","descripcion":"HB-061 CAP HONGOS VAG. 150 MG","ventaPromedio":1201.0,"cantidadRecomendada":1602,"stockActual":59,"categoria":"CÁPSULAS"},{"codigo":"HB-062","descripcion":"HB-062 CAP BOTIRIZINA 10 MG","ventaPromedio":7624.0,"cantidadRecomendada":10166,"stockActual":467,"categoria":"CÁPSULAS"},{"codigo":"HB-071","descripcion":"HB-071 21CAP LIMP/VIAS URINARI","ventaPromedio":231.0,"cantidadRecomendada":308,"stockActual":48,"categoria":"CÁPSULAS"},{"codigo":"HB-092","descripcion":"HB-092 CAPSULAS DIGESTIVAS","ventaPromedio":7057.0,"cantidadRecomendada":9410,"stockActual":335,"categoria":"CÁPSULAS"},{"codigo":"HB-103","descripcion":"HB-103 KLINDAZOL 300 CAP","ventaPromedio":232.0,"cantidadRecomendada":310,"stockActual":12,"categoria":"CÁPSULAS"},{"codigo":"HB-104","descripcion":"HB-104 KLINDAZOL 150 CAP","ventaPromedio":19.0,"cantidadRecomendada":26,"stockActual":90,"categoria":"CÁPSULAS"},{"codigo":"HB-105","descripcion":"HB-105 ACNICICLINA CAPx100","ventaPromedio":3550.0,"cantidadRecomendada":4734,"stockActual":380,"categoria":"CÁPSULAS"},{"codigo":"HB-106","descripcion":"HB-106 ORICONAZOL CAPx100M","ventaPromedio":1684.0,"cantidadRecomendada":2246,"stockActual":95,"categoria":"CÁPSULAS"},{"codigo":"HB-117","descripcion":"HB-117 CAPSULAS DENSIFICADORAS","ventaPromedio":184.0,"cantidadRecomendada":246,"stockActual":87,"categoria":"CÁPSULAS"},{"codigo":"HB-122","descripcion":"HB-122 CAP/PIPERIDIN+GC","ventaPromedio":3360.0,"cantidadRecomendada":4480,"stockActual":596,"categoria":"CÁPSULAS"},{"codigo":"HB-123","descripcion":"HB-123 CAP/CAPILARES","ventaPromedio":2323.0,"cantidadRecomendada":3098,"stockActual":414,"categoria":"CÁPSULAS"},{"codigo":"HB-127","descripcion":"HB-127 CAP/VARICES","ventaPromedio":3325.0,"cantidadRecomendada":4434,"stockActual":2,"categoria":"CÁPSULAS"},{"codigo":"HB-128","descripcion":"HB-128 CAP/FLUOROQUINOLONA","ventaPromedio":1262.0,"cantidadRecomendada":1683,"stockActual":54,"categoria":"CÁPSULAS"},{"codigo":"HB-129","descripcion":"HB-129 BOTITROMICINA CAP","ventaPromedio":588.0,"cantidadRecomendada":784,"stockActual":88,"categoria":"CÁPSULAS"},{"codigo":"HB-130","descripcion":"HB-130 CAP/ESTEROL/LIPIDOS/20","ventaPromedio":1053.0,"cantidadRecomendada":1404,"stockActual":136,"categoria":"CÁPSULAS"},{"codigo":"HB-131","descripcion":"HB-131 CAP/ESTEROL/LIPIDOS/40","ventaPromedio":189.0,"cantidadRecomendada":252,"stockActual":74,"categoria":"CÁPSULAS"},{"codigo":"HB-138","descripcion":"HB-138 CAP/COXIB/200MG","ventaPromedio":425.0,"cantidadRecomendada":567,"stockActual":203,"categoria":"CÁPSULAS"},{"codigo":"HB-141","descripcion":"HB-141 CAP 75MG NEURO/HERPES","ventaPromedio":972.0,"cantidadRecomendada":1296,"stockActual":251,"categoria":"CÁPSULAS"},{"codigo":"HB-142","descripcion":"HB-142 CAP NEURO/HERPES 150MG","ventaPromedio":363.0,"cantidadRecomendada":484,"stockActual":63,"categoria":"CÁPSULAS"},{"codigo":"HB-144","descripcion":"HB-144 CAP 6MG ESCABIOSIS/SARN","ventaPromedio":1100.0,"cantidadRecomendada":1467,"stockActual":210,"categoria":"CÁPSULAS"},{"codigo":"HB-145","descripcion":"HB-145 SUPER CAP ANTIINFLAMATO","ventaPromedio":238.0,"cantidadRecomendada":318,"stockActual":91,"categoria":"CÁPSULAS"},{"codigo":"HB-147","descripcion":"HB-147 CAP 3MG ESCABIOSIS/SARN","ventaPromedio":69.0,"cantidadRecomendada":92,"stockActual":4700,"categoria":"CÁPSULAS"},{"codigo":"HB-148","descripcion":"HB-148 SUPER CAP 10MG ANTIINFL","ventaPromedio":236.0,"cantidadRecomendada":315,"stockActual":84,"categoria":"CÁPSULAS"},{"codigo":"HB-165-1G","descripcion":"HB-165-1G F-CAP CLOR. SODIO 1G","ventaPromedio":9458.0,"cantidadRecomendada":12611,"stockActual":1653,"categoria":"CÁPSULAS"},{"codigo":"HB-165-500MG","descripcion":"HB-165-500MG F-CAP CLO.SOD","ventaPromedio":2714.0,"cantidadRecomendada":3619,"stockActual":2090,"categoria":"CÁPSULAS"},{"codigo":"HB-168-1G","descripcion":"HB-168-1G F-CAP.CARB CALCIO 1G","ventaPromedio":2784.0,"cantidadRecomendada":3712,"stockActual":1293,"categoria":"CÁPSULAS"},{"codigo":"HB-168-500MG","descripcion":"HB-168-500MG F-CAP CRB CALCIO","ventaPromedio":5026.0,"cantidadRecomendada":6702,"stockActual":292,"categoria":"CÁPSULAS"},{"codigo":"HB-170","descripcion":"HB-170 CAP.ANTIPIRETICA","ventaPromedio":1119.0,"cantidadRecomendada":1492,"stockActual":170,"categoria":"CÁPSULAS"},{"codigo":"HB-185","descripcion":"HB-185 DOLOCAP","ventaPromedio":15293.0,"cantidadRecomendada":20391,"stockActual":1169,"categoria":"CÁPSULAS"},{"codigo":"HB-190-300","descripcion":"HB-190-300 MG LIMECICL300 CAP","ventaPromedio":39.0,"cantidadRecomendada":52,"stockActual":31,"categoria":"CÁPSULAS"},{"codigo":"HB-193","descripcion":"HB-193 OSTEOARTRITIS-CAP","ventaPromedio":3233.0,"cantidadRecomendada":4311,"stockActual":565,"categoria":"CÁPSULAS"},{"codigo":"HB-196","descripcion":"HB-196 CAP REG HIGADO S+Q10+B","ventaPromedio":14376.0,"cantidadRecomendada":19168,"stockActual":381,"categoria":"CÁPSULAS"},{"codigo":"HB-198","descripcion":"HB-198 CAP REG HIGADO S+Q10","ventaPromedio":808.0,"cantidadRecomendada":1078,"stockActual":184,"categoria":"CÁPSULAS"},{"codigo":"HB-300-1G","descripcion":"HB-300-1G CAP BICARB-SODIO","ventaPromedio":22312.0,"cantidadRecomendada":29750,"stockActual":4688,"categoria":"CÁPSULAS"},{"codigo":"HB-300-500MG","descripcion":"HB-300-500MG CAP BICARB-SODIO","ventaPromedio":21986.0,"cantidadRecomendada":29315,"stockActual":712,"categoria":"CÁPSULAS"},{"codigo":"HB-300-650MG","descripcion":"HB-300-650MG CAP BICARB-SODIO","ventaPromedio":917.0,"cantidadRecomendada":1223,"stockActual":3651,"categoria":"CÁPSULAS"},{"codigo":"HB-300-750MG","descripcion":"HB-300-750MG CAP BICARB-SODIO","ventaPromedio":257.0,"cantidadRecomendada":343,"stockActual":3475,"categoria":"CÁPSULAS"},{"codigo":"HB-315","descripcion":"HB-315 500MG EXT-CRANB CAPX30","ventaPromedio":198.0,"cantidadRecomendada":264,"stockActual":0,"categoria":"CÁPSULAS"},{"codigo":"HB-317","descripcion":"HB-317 CAP VITAMINA E Y A","ventaPromedio":12.0,"cantidadRecomendada":16,"stockActual":69,"categoria":"CÁPSULAS"},{"codigo":"HB-321","descripcion":"HB-321 AC.BORIC 600MG CAP.VAGI","ventaPromedio":188.0,"cantidadRecomendada":251,"stockActual":10,"categoria":"CÁPSULAS"},{"codigo":"HB-322","descripcion":"HB-322 4MG X 15 TIOCOLCHIC CAP","ventaPromedio":188.0,"cantidadRecomendada":251,"stockActual":2,"categoria":"CÁPSULAS"},{"codigo":"HB-333A","descripcion":"HB-333A BOTISEL CAPX60","ventaPromedio":144.0,"cantidadRecomendada":192,"stockActual":2814,"categoria":"CÁPSULAS"},{"codigo":"HB-333B","descripcion":"HB-333B BOTISEL PLUS CAPX60","ventaPromedio":146.0,"cantidadRecomendada":195,"stockActual":103,"categoria":"CÁPSULAS"},{"codigo":"HB-334","descripcion":"HB-334 LIPOICO+B6+B12 CAPX30","ventaPromedio":29.0,"cantidadRecomendada":39,"stockActual":829,"categoria":"CÁPSULAS"},{"codigo":"HB-350","descripcion":"HB-350 MAGNESIO+D3 CAPX30","ventaPromedio":7.0,"cantidadRecomendada":10,"stockActual":62,"categoria":"CÁPSULAS"},{"codigo":"HB-352","descripcion":"HB-352 CAP LIPOICO+OMEGA3X60","ventaPromedio":112.0,"cantidadRecomendada":150,"stockActual":8,"categoria":"CÁPSULAS"},{"codigo":"HB-353","descripcion":"HB-353 CAP VITAMINA AX30","ventaPromedio":12.0,"cantidadRecomendada":16,"stockActual":58,"categoria":"CÁPSULAS"},{"codigo":"HB-359","descripcion":"HB-359 CAP INOSITOLX30","ventaPromedio":41.0,"cantidadRecomendada":55,"stockActual":371,"categoria":"CÁPSULAS"},{"codigo":"HB-359","descripcion":"HB-359 CAP INOSITOLX60","ventaPromedio":174.0,"cantidadRecomendada":232,"stockActual":4902,"categoria":"CÁPSULAS"},{"codigo":"HB-360-10MG","descripcion":"HB-360-10MG CAP MELATONINAX8","ventaPromedio":42.0,"cantidadRecomendada":56,"stockActual":0,"categoria":"CÁPSULAS"},{"codigo":"HB-360-5MG","descripcion":"HB-360-5MG CAP MELATONINAX8","ventaPromedio":62.0,"cantidadRecomendada":83,"stockActual":0,"categoria":"CÁPSULAS"},{"codigo":"HB-361","descripcion":"HB-361 CAP COMPLEJOB+FOLX30","ventaPromedio":161.0,"cantidadRecomendada":215,"stockActual":22,"categoria":"CÁPSULAS"},{"codigo":"HB-363","descripcion":"HB-363 CAP DE OMEGA3 1000MGX60","ventaPromedio":522.0,"cantidadRecomendada":696,"stockActual":6,"categoria":"CÁPSULAS"},{"codigo":"HB-366","descripcion":"HB-366 CAP DE ASH+MAG+ZINC+SEL","ventaPromedio":89.0,"cantidadRecomendada":119,"stockActual":500,"categoria":"CÁPSULAS"},{"codigo":"HB-369","descripcion":"HB-369 CAP TIOCBC X60","ventaPromedio":18.0,"cantidadRecomendada":24,"stockActual":1,"categoria":"CÁPSULAS"},{"codigo":"HB-371","descripcion":"HB-371 BOTIDAFIL CAP X10MG","ventaPromedio":400.0,"cantidadRecomendada":534,"stockActual":0,"categoria":"CÁPSULAS"},{"codigo":"HB-372","descripcion":"HB-372 BOTIRIDE CAPX0.5MG","ventaPromedio":940.0,"cantidadRecomendada":1254,"stockActual":2514,"categoria":"CÁPSULAS"},{"codigo":"HB-374","descripcion":"HB-374 CAP INOSITOL 610MGX60","ventaPromedio":251.0,"cantidadRecomendada":335,"stockActual":26,"categoria":"CÁPSULAS"},{"codigo":"HB-082","descripcion":"HB-082 F. ORAL AUX. ANTIVERRUG","ventaPromedio":654.0,"cantidadRecomendada":872,"stockActual":107,"categoria":"CÁPSULAS"},{"codigo":"HB-115","descripcion":"HB-115 DICLOROFENILIMIDAZOL","ventaPromedio":1909.0,"cantidadRecomendada":2546,"stockActual":276,"categoria":"CÁPSULAS"},{"codigo":"HB-121","descripcion":"HB-121 SOBRES HUESOS","ventaPromedio":311.0,"cantidadRecomendada":415,"stockActual":3965,"categoria":"CÁPSULAS"},{"codigo":"HB-124","descripcion":"HB-124 SOBRES PARA HUESOS","ventaPromedio":34.0,"cantidadRecomendada":46,"stockActual":774,"categoria":"CÁPSULAS"},{"codigo":"HB-149","descripcion":"HB-149 BOTISOPRINOL 500MG","ventaPromedio":52.0,"cantidadRecomendada":70,"stockActual":4666,"categoria":"CÁPSULAS"},{"codigo":"HB-150","descripcion":"HB-150 BOTIXICLINA 40MG","ventaPromedio":1092.0,"cantidadRecomendada":1456,"stockActual":87,"categoria":"CÁPSULAS"},{"codigo":"HB-268","descripcion":"HB-268 SOBRE POTASIO CITRATO","ventaPromedio":66.0,"cantidadRecomendada":88,"stockActual":172,"categoria":"CÁPSULAS"},{"codigo":"HB-250","descripcion":"HB-250 BOTIPROST 0,415MG","ventaPromedio":3938.0,"cantidadRecomendada":5251,"stockActual":610,"categoria":"CÁPSULAS"},{"codigo":"HB-323","descripcion":"HB-323 500MG X5 CEFALEXINA","ventaPromedio":39.0,"cantidadRecomendada":52,"stockActual":4,"categoria":"CÁPSULAS"},{"codigo":"HB-329","descripcion":"HB-329 BOTIFAL 3MGX15","ventaPromedio":98.0,"cantidadRecomendada":131,"stockActual":41,"categoria":"CÁPSULAS"},{"codigo":"HB-373","descripcion":"HB-373 INOSITOL SOB X 4G","ventaPromedio":311.0,"cantidadRecomendada":415,"stockActual":0,"categoria":"CÁPSULAS"},{"codigo":"HB-375","descripcion":"HB-375 INOSITOL SOB X 4G","ventaPromedio":53.0,"cantidadRecomendada":71,"stockActual":851,"categoria":"CÁPSULAS"},{"codigo":"HB-195","descripcion":"HB-195 SALMG/OZC 40MG","ventaPromedio":2083.0,"cantidadRecomendada":2778,"stockActual":174,"categoria":"CÁPSULAS"},{"codigo":"HB-137","descripcion":"HB-137 HIPOGLUCEMIANTE 5MG","ventaPromedio":1650.0,"cantidadRecomendada":2200,"stockActual":0,"categoria":"CÁPSULAS"},{"codigo":"HB-195","descripcion":"HB-195 SALMG/OZC 20 MG","ventaPromedio":1245.0,"cantidadRecomendada":1660,"stockActual":374,"categoria":"CÁPSULAS"}];
 
-// Estado: producción ingresada por operador (persiste en sessionStorage)
+// ═══════════════════════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════════════════════
 const estadoProduccion = {};
+let filtroActual = 'todos';
+let semanaOffset = 0; // 0 = semana actual
 
 function cargarEstado() {
-  try {
-    const s = sessionStorage.getItem('produccion_hb');
-    if (s) Object.assign(estadoProduccion, JSON.parse(s));
-  } catch(e) {}
+  try { const s = sessionStorage.getItem('produccion_hb'); if (s) Object.assign(estadoProduccion, JSON.parse(s)); } catch(e) {}
 }
 function guardarEstado() {
   try { sessionStorage.setItem('produccion_hb', JSON.stringify(estadoProduccion)); } catch(e) {}
 }
-
 cargarEstado();
 
-let filtroActual = 'todos';
+// ═══════════════════════════════════════════════════════
+// HELPERS CÁLCULO
+// ═══════════════════════════════════════════════════════
 
-function calcularDias(stockActual, cantProd, ventaProm) {
-  if (ventaProm <= 0) return null;
-  const total = (stockActual || 0) + (cantProd || 0);
-  return total / ventaProm * 30; // días (venta promedio mensual)
+// Para CÁPSULAS: solo producción ingresada (sin stock actual)
+// Para OFICINALES: stock actual + producción
+function stockEfectivo(p) {
+  const cantProd = estadoProduccion[p.codigo + '_' + p.descripcion] || 0;
+  if (p.categoria === 'CÁPSULAS') return cantProd;
+  return (p.stockActual || 0) + cantProd;
+}
+
+function calcularDias(p) {
+  const total = stockEfectivo(p);
+  if (p.ventaPromedio <= 0) return null;
+  return total / p.ventaPromedio * 30;
 }
 
 function estadoAlerta(dias) {
@@ -346,25 +271,33 @@ function estadoAlerta(dias) {
   return 'estable';
 }
 
+// ═══════════════════════════════════════════════════════
+// NAVEGACIÓN DE VISTAS
+// ═══════════════════════════════════════════════════════
+function cambiarVista(vista, btn) {
+  document.getElementById('vista-stock').style.display = vista === 'stock' ? '' : 'none';
+  document.getElementById('vista-planificacion').style.display = vista === 'planificacion' ? '' : 'none';
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('activo'));
+  btn.classList.add('activo');
+  if (vista === 'planificacion') renderPlanificacion();
+}
+
+// ═══════════════════════════════════════════════════════
+// TABLA STOCK Y PRODUCCIÓN
+// ═══════════════════════════════════════════════════════
 function filtrarProductos() {
   const busq = document.getElementById('busqueda').value.toLowerCase().trim();
   return PRODUCTOS.filter(p => {
-    // Filtro de categoría/estado
     if (filtroActual === 'OFICINALES' && p.categoria !== 'OFICINALES') return false;
     if (filtroActual === 'CÁPSULAS' && p.categoria !== 'CÁPSULAS') return false;
-
-    if (filtroActual === 'CRÍTICO' || filtroActual === 'ALERTA' || filtroActual === 'ESTABLE') {
-      const cantProd = estadoProduccion[p.codigo + '_' + p.descripcion] || 0;
-      const dias = calcularDias(p.stockActual, cantProd, p.ventaPromedio);
-      const estado = estadoAlerta(dias);
-      const map = { 'CRÍTICO': 'critico', 'ALERTA': 'alerta', 'ESTABLE': 'estable' };
-      if (estado !== map[filtroActual]) return false;
+    if (['CRÍTICO','ALERTA','ESTABLE'].includes(filtroActual)) {
+      const dias = calcularDias(p);
+      const e = estadoAlerta(dias);
+      const map = { 'CRÍTICO':'critico','ALERTA':'alerta','ESTABLE':'estable' };
+      if (e !== map[filtroActual]) return false;
     }
-
-    // Búsqueda de texto
     if (busq) {
-      const texto = (p.codigo + ' ' + p.descripcion).toLowerCase();
-      if (!texto.includes(busq)) return false;
+      if (!(p.codigo + ' ' + p.descripcion).toLowerCase().includes(busq)) return false;
     }
     return true;
   });
@@ -377,190 +310,260 @@ function setFiltro(f, btn) {
   renderTablas();
 }
 
-function renderResumen(productos) {
+function renderResumen() {
   let critico = 0, alerta = 0, estable = 0;
-  productos.forEach(p => {
-    const cantProd = estadoProduccion[p.codigo + '_' + p.descripcion] || 0;
-    const dias = calcularDias(p.stockActual, cantProd, p.ventaPromedio);
-    const e = estadoAlerta(dias);
+  PRODUCTOS.forEach(p => {
+    const e = estadoAlerta(calcularDias(p));
     if (e === 'critico') critico++;
     else if (e === 'alerta') alerta++;
-    else estable++;
+    else if (e === 'estable') estable++;
   });
-
   document.getElementById('resumen').innerHTML = `
-    <div class="card total">
-      <div class="card-num">${PRODUCTOS.length}</div>
-      <div class="card-label">Total Productos</div>
-    </div>
-    <div class="card critico">
-      <div class="card-num">${critico}</div>
-      <div class="card-label">🔴 Crítico &lt;15 días</div>
-    </div>
-    <div class="card alerta">
-      <div class="card-num">${alerta}</div>
-      <div class="card-label">🟡 Alerta 15–30 días</div>
-    </div>
-    <div class="card estable">
-      <div class="card-num">${estable}</div>
-      <div class="card-label">🟢 Estable &gt;30 días</div>
-    </div>
+    <div class="card total"><div class="card-num">${PRODUCTOS.length}</div><div class="card-label">Total Productos</div></div>
+    <div class="card critico"><div class="card-num">${critico}</div><div class="card-label">🔴 Crítico &lt;15 días</div></div>
+    <div class="card alerta"><div class="card-num">${alerta}</div><div class="card-label">🟡 Alerta 15–30 días</div></div>
+    <div class="card estable"><div class="card-num">${estable}</div><div class="card-label">🟢 Estable &gt;30 días</div></div>
   `;
 }
 
-function fmt(n) {
-  if (n === null || n === undefined) return '—';
-  return n.toLocaleString('es-EC');
-}
-
-function fmtDias(dias) {
-  if (dias === null) return '—';
-  if (dias >= 90) return '>90 días';
-  return dias.toFixed(1) + ' días';
-}
-
-function diasBarColor(estado) {
-  if (estado === 'critico') return '#C0392B';
-  if (estado === 'alerta') return '#B8860B';
-  return '#1A7A4A';
-}
-
-function diasBarWidth(dias) {
-  if (dias === null) return 0;
-  return Math.min(100, (dias / 90) * 100);
-}
+function fmt(n) { if (n === null || n === undefined) return '—'; return n.toLocaleString('es-EC'); }
+function fmtDias(dias) { if (dias === null) return '—'; if (dias >= 90) return '>90 días'; return dias.toFixed(1) + ' días'; }
+function diasBarColor(e) { return e==='critico'?'#C0392B':e==='alerta'?'#B8860B':'#1A7A4A'; }
+function diasBarWidth(dias) { if (!dias) return 0; return Math.min(100,(dias/90)*100); }
 
 function renderFila(p, idx) {
   const key = p.codigo + '_' + p.descripcion;
   const cantProd = estadoProduccion[key] || 0;
-  const dias = calcularDias(p.stockActual, cantProd, p.ventaPromedio);
+  const isCap = p.categoria === 'CÁPSULAS';
+  const dias = calcularDias(p);
   const estado = estadoAlerta(dias);
-  const barW = diasBarWidth(dias);
-  const barColor = diasBarColor(estado);
+
+  // Para cápsulas: columna stock actual = "—" y total = solo producción
+  const stockMostrar = isCap ? '—' : fmt(p.stockActual);
+  const totalMostrar = isCap ? fmt(cantProd) : fmt((p.stockActual||0) + cantProd);
 
   return `<tr id="fila-${idx}">
     <td><span class="codigo-chip">${p.codigo}</span></td>
-    <td class="desc">${p.descripcion.replace(p.codigo + ' ', '')}</td>
+    <td class="desc">${p.descripcion.replace(p.codigo + ' ','')}</td>
     <td class="center num num-prom">${fmt(p.ventaPromedio)}</td>
     <td class="center num num-recom">${fmt(p.cantidadRecomendada)}</td>
-    <td class="center num">${fmt(p.stockActual)}</td>
+    <td class="center num">${stockMostrar}${isCap?`<br><span class="nota-cap">no aplica</span>`:''}</td>
     <td class="center">
-      <input
-        type="number"
-        class="prod-input${cantProd > 0 ? ' modificado' : ''}"
-        value="${cantProd > 0 ? cantProd : ''}"
-        min="0"
-        placeholder="0"
-        data-key="${key}"
-        onchange="actualizarProduccion(this, ${idx})"
-        oninput="actualizarProduccion(this, ${idx})"
-      >
+      <input type="number" class="prod-input${cantProd>0?' modificado':''}"
+        value="${cantProd>0?cantProd:''}" min="0" placeholder="0"
+        data-key="${key}" data-idx="${idx}"
+        onchange="actualizarProduccion(this)" oninput="actualizarProduccion(this)">
     </td>
-    <td class="center num">${fmt((p.stockActual || 0) + cantProd)}</td>
+    <td class="center num" id="total-${idx}">${totalMostrar}</td>
     <td>
       <div class="dias-bar-wrap">
-        <span class="dias-badge dias-${estado === 'sin-datos' ? 'sin-datos' : estado}" id="badge-${idx}">${fmtDias(dias)}</span>
-        <div class="dias-bar-bg"><div class="dias-bar-fill" id="bar-${idx}" style="width:${barW}%;background:${barColor}"></div></div>
+        <span class="dias-badge dias-${estado==='sin-datos'?'sin-datos':estado}" id="badge-${idx}">${fmtDias(dias)}</span>
+        <div class="dias-bar-bg"><div class="dias-bar-fill" id="bar-${idx}" style="width:${diasBarWidth(dias)}%;background:${diasBarColor(estado)}"></div></div>
       </div>
     </td>
   </tr>`;
 }
 
-function actualizarProduccion(input, idx) {
+function actualizarProduccion(input) {
   const key = input.dataset.key;
+  const idx = parseInt(input.dataset.idx);
   const val = Math.max(0, parseInt(input.value) || 0);
   estadoProduccion[key] = val;
   guardarEstado();
 
-  // Actualizar visualmente sin re-render total
   const p = PRODUCTOS[idx];
-  const dias = calcularDias(p.stockActual, val, p.ventaPromedio);
+  const isCap = p.categoria === 'CÁPSULAS';
+  const dias = calcularDias(p);
   const estado = estadoAlerta(dias);
 
   const badge = document.getElementById('badge-' + idx);
   const bar = document.getElementById('bar-' + idx);
-  const fila = document.getElementById('fila-' + idx);
+  const totalTd = document.getElementById('total-' + idx);
 
-  if (badge) {
-    badge.textContent = fmtDias(dias);
-    badge.className = 'dias-badge dias-' + (estado === 'sin-datos' ? 'sin-datos' : estado);
-  }
-  if (bar) {
-    bar.style.width = diasBarWidth(dias) + '%';
-    bar.style.background = diasBarColor(estado);
-  }
-
-  // Total stock con producción
-  const totalTd = fila ? fila.querySelectorAll('td')[6] : null;
-  if (totalTd) totalTd.textContent = fmt((p.stockActual || 0) + val);
-
+  if (badge) { badge.textContent = fmtDias(dias); badge.className = 'dias-badge dias-' + (estado==='sin-datos'?'sin-datos':estado); }
+  if (bar) { bar.style.width = diasBarWidth(dias)+'%'; bar.style.background = diasBarColor(estado); }
+  if (totalTd) totalTd.textContent = isCap ? fmt(val) : fmt((p.stockActual||0)+val);
   input.classList.toggle('modificado', val > 0);
-  renderResumen(PRODUCTOS);
+  renderResumen();
 }
 
 function renderTablas() {
   const filtrados = filtrarProductos();
-  renderResumen(PRODUCTOS); // resumen siempre del total
-
-  const categorias = ['OFICINALES', 'CÁPSULAS'];
+  renderResumen();
+  const categorias = ['OFICINALES','CÁPSULAS'];
   let html = '';
-
   for (const cat of categorias) {
     const prods = filtrados.filter(p => p.categoria === cat);
-    if (prods.length === 0) continue;
-
-    const idx_global = (p) => PRODUCTOS.indexOf(p);
-
-    html += `<div class="seccion-titulo">${cat === 'OFICINALES' ? '⚗️ Oficinales y Líquidos' : '💊 Cápsulas, Sobres y Sólidos'} <span style="color:#aaa;font-weight:400">(${prods.length} productos)</span></div>`;
-    html += `<table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Descripción</th>
-          <th class="center">Venta Prom.<br><small style="font-weight:400;text-transform:none">unid/mes</small></th>
-          <th class="center">Cant. a Producir<br><small style="font-weight:400;text-transform:none">recomendado</small></th>
-          <th class="center">Stock Actual<br><small style="font-weight:400;text-transform:none">cajas</small></th>
-          <th class="center">Produc. a Ingresar<br><small style="font-weight:400;text-transform:none">operador</small></th>
-          <th class="center">Stock Total<br><small style="font-weight:400;text-transform:none">actual + prod.</small></th>
-          <th>Días de Stock</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${prods.map(p => renderFila(p, idx_global(p))).join('')}
-      </tbody>
-    </table>`;
+    if (!prods.length) continue;
+    const isCap = cat === 'CÁPSULAS';
+    html += `<div class="seccion-titulo">${cat==='OFICINALES'?'⚗️ Oficinales y Líquidos':'💊 Cápsulas, Sobres y Sólidos'} <span style="color:#aaa;font-weight:400">(${prods.length} productos)</span>${isCap?'<span style="font-size:11px;font-weight:400;color:#B8860B;margin-left:8px">⚠ Stock actual no aplica para cápsulas — se planifica sobre producción ingresada</span>':''}</div>`;
+    html += `<table><thead><tr>
+      <th>Código</th><th>Descripción</th>
+      <th class="center">Venta Prom.<br><small style="font-weight:400;text-transform:none">unid/mes</small></th>
+      <th class="center">Cant. Recomendada<br><small style="font-weight:400;text-transform:none">a producir</small></th>
+      <th class="center">${isCap?'Stock Actual<br><small style="font-weight:400;text-transform:none">no aplica</small>':'Stock Actual<br><small style="font-weight:400;text-transform:none">cajas</small>'}</th>
+      <th class="center">Produc. a Ingresar<br><small style="font-weight:400;text-transform:none">operador</small></th>
+      <th class="center">${isCap?'Total Producción<br><small style="font-weight:400;text-transform:none">ingresada</small>':'Stock Total<br><small style="font-weight:400;text-transform:none">actual + prod.</small>'}</th>
+      <th>Días de Stock</th>
+    </tr></thead><tbody>
+      ${prods.map(p => renderFila(p, PRODUCTOS.indexOf(p))).join('')}
+    </tbody></table>`;
   }
-
-  if (html === '') {
-    html = '<div class="no-resultados">No se encontraron productos con los filtros actuales.</div>';
-  }
-
+  if (!html) html = '<div class="no-resultados">No se encontraron productos con los filtros actuales.</div>';
   document.getElementById('contenido').innerHTML = html;
 }
 
-// ── Reloj ──
+// ═══════════════════════════════════════════════════════
+// PLANIFICACIÓN SEMANAL
+// ═══════════════════════════════════════════════════════
+
+// Obtiene el lunes de la semana dada (offset en semanas desde hoy)
+function lunesDeSemana(offset) {
+  const hoy = new Date();
+  hoy.setHours(0,0,0,0);
+  const diaSemana = hoy.getDay(); // 0=dom, 1=lun...
+  const diasHastaLunes = diaSemana === 0 ? -6 : 1 - diaSemana;
+  const lunes = new Date(hoy);
+  lunes.setDate(hoy.getDate() + diasHastaLunes + offset * 7);
+  return lunes;
+}
+
+// Genera los 6 días laborales (lun-sab) de la semana
+function diasLaborales(lunes) {
+  return Array.from({length:6}, (_,i) => {
+    const d = new Date(lunes);
+    d.setDate(lunes.getDate() + i);
+    return d;
+  });
+}
+
+const DIAS_NOMBRE = ['Lun','Mar','Mié','Jue','Vie','Sáb'];
+const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+
+function fmtFechaCorta(d) {
+  return `${DIAS_NOMBRE[d.getDay()===0?6:d.getDay()-1]} ${d.getDate()} ${MESES[d.getMonth()]}`;
+}
+
+function cambiarSemana(delta) {
+  semanaOffset += delta;
+  renderPlanificacion();
+}
+
+function renderPlanificacion() {
+  const lunes = lunesDeSemana(semanaOffset);
+  const sabado = new Date(lunes); sabado.setDate(lunes.getDate()+5);
+  const dias = diasLaborales(lunes);
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+
+  // Título
+  const tituloEl = document.getElementById('titulo-semana');
+  const semLabel = semanaOffset === 0 ? ' (semana actual)' : semanaOffset === 1 ? ' (próxima semana)' : semanaOffset === -1 ? ' (semana pasada)' : '';
+  tituloEl.textContent = `${lunes.getDate()} ${MESES[lunes.getMonth()]} – ${sabado.getDate()} ${MESES[sabado.getMonth()]} ${sabado.getFullYear()}${semLabel}`;
+
+  // Calcular días desde HOY para cada producto
+  // Mostrar solo los que tienen días < 45 (relevantes en las próximas 6 semanas) o tienen producción ingresada
+  const productosPlan = PRODUCTOS
+    .filter(p => p.ventaPromedio > 0)
+    .map(p => {
+      const dias = calcularDias(p);
+      return { ...p, diasDisponibles: dias };
+    })
+    .filter(p => p.diasDisponibles !== null && p.diasDisponibles < 45)
+    .sort((a,b) => a.diasDisponibles - b.diasDisponibles);
+
+  const cal = document.getElementById('calendario');
+  const sinDatos = document.getElementById('plan-sin-datos');
+
+  if (productosPlan.length === 0) {
+    cal.style.display = 'none';
+    sinDatos.style.display = '';
+    return;
+  }
+  cal.style.display = '';
+  sinDatos.style.display = 'none';
+
+  // Calcular qué día se agotará cada producto desde HOY
+  // diasDisponibles son días desde hoy. 
+  // Para la semana visualizada: offset de la semana en días desde hoy
+  const offsetInicioSemana = Math.round((lunes - hoy) / 86400000); // días desde hoy hasta el lunes
+
+  let html = '';
+
+  // Header
+  html += `<div class="cal-header prod-label">Producto</div>`;
+  dias.forEach((d, i) => {
+    const esHoy = d.getTime() === hoy.getTime();
+    html += `<div class="cal-header${esHoy?' hoy':''}">${fmtFechaCorta(d)}</div>`;
+  });
+
+  // Filas
+  productosPlan.forEach(p => {
+    const agotaDia = p.diasDisponibles; // días desde hoy en que se agota
+
+    html += `<div class="cal-cell prod-nombre">
+      <span class="codigo-chip" style="font-size:10px">${p.codigo}</span>
+      <small>${p.descripcion.replace(p.codigo+' ','').substring(0,32)}</small>
+    </div>`;
+
+    dias.forEach((d, i) => {
+      const esHoy = d.getTime() === hoy.getTime();
+      const diaEnRelacion = offsetInicioSemana + i; // días desde hoy que es este día de la semana
+      // Cuántos días de stock quedan en este día de la semana
+      const diasRestantes = agotaDia - diaEnRelacion;
+
+      let contenido = '';
+      let claseExtra = esHoy ? ' hoy-col' : '';
+
+      if (diasRestantes <= 0) {
+        // Ya agotado
+        contenido = `<span class="pill-prod pill-critico">⚠ Agotado</span>`;
+      } else if (diasRestantes <= 1) {
+        // Se agota HOY o mañana
+        contenido = `<span class="pill-prod pill-critico">🔴 Vence hoy</span>`;
+      } else if (diasRestantes <= 4) {
+        contenido = `<span class="pill-prod pill-alerta">🟡 ${diasRestantes.toFixed(0)}d restantes</span>`;
+      } else {
+        contenido = `<span class="pill-prod pill-estable" style="background:#E8F5EE;color:#2d7a4a">✓ ${diasRestantes.toFixed(0)}d</span>`;
+      }
+
+      html += `<div class="cal-cell dia-celda${claseExtra}">${contenido}</div>`;
+    });
+  });
+
+  cal.innerHTML = html;
+  // Ajustar columnas dinámicamente
+  cal.style.gridTemplateColumns = `220px repeat(6, 1fr)`;
+}
+
+// ═══════════════════════════════════════════════════════
+// RELOJ
+// ═══════════════════════════════════════════════════════
 function actualizarReloj() {
   const ahora = new Date();
-  const fecha = ahora.toLocaleDateString('es-EC', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  const hora = ahora.toLocaleTimeString('es-EC', { hour: '2-digit', minute: '2-digit' });
+  const fecha = ahora.toLocaleDateString('es-EC', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  const hora  = ahora.toLocaleTimeString('es-EC', {hour:'2-digit', minute:'2-digit'});
   document.getElementById('reloj').innerHTML = `${fecha}<br>${hora}`;
 }
 actualizarReloj();
 setInterval(actualizarReloj, 30000);
 
-// ── Exportar CSV ──
+// ═══════════════════════════════════════════════════════
+// EXPORTAR CSV
+// ═══════════════════════════════════════════════════════
 function exportarCSV() {
-  const filas = [['Código','Descripción','Categoría','Venta Prom','Cant Recomendada','Stock Actual','Producción Ingresada','Stock Total','Días Disponibles','Estado']];
+  const filas = [['Código','Descripción','Categoría','Venta Prom','Cant Recomendada','Stock Actual','Producción Ingresada','Stock Efectivo','Días Disponibles','Estado']];
   PRODUCTOS.forEach(p => {
-    const key = p.codigo + '_' + p.descripcion;
+    const key = p.codigo+'_'+p.descripcion;
     const cantProd = estadoProduccion[key] || 0;
-    const dias = calcularDias(p.stockActual, cantProd, p.ventaPromedio);
+    const isCap = p.categoria === 'CÁPSULAS';
+    const stockEf = stockEfectivo(p);
+    const dias = calcularDias(p);
     const estado = estadoAlerta(dias);
-    const estadoTexto = { critico:'🔴 CRÍTICO', alerta:'🟡 ALERTA', estable:'🟢 ESTABLE', 'sin-datos':'SIN DATOS' }[estado];
-    filas.push([p.codigo, p.descripcion, p.categoria, p.ventaPromedio, p.cantidadRecomendada, p.stockActual, cantProd, (p.stockActual||0)+cantProd, dias !== null ? dias.toFixed(1) : '', estadoTexto]);
+    const eTexto = {critico:'🔴 CRÍTICO',alerta:'🟡 ALERTA',estable:'🟢 ESTABLE','sin-datos':'SIN DATOS'}[estado];
+    filas.push([p.codigo, p.descripcion, p.categoria, p.ventaPromedio, p.cantidadRecomendada, isCap?'N/A':p.stockActual, cantProd, stockEf, dias!==null?dias.toFixed(1):'', eTexto]);
   });
   const csv = filas.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
-  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `panel_produccion_${new Date().toISOString().slice(0,10)}.csv`;
