@@ -101,7 +101,7 @@
   .no-resultados { text-align: center; padding: 40px; color: var(--texto-suave); font-size: 14px; }
 
   /* ── PLANIFICACIÓN SEMANAL ── */
-  #vista-planificacion { display: none; }
+  .vista-oculta { display: none !important; }
   .plan-wrap { padding: 16px 24px 40px; }
 
   .semana-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
@@ -192,7 +192,7 @@
 <!-- ══════════════════════════════════════════
      VISTA 2: PLANIFICACIÓN SEMANAL
 ════════════════════════════════════════════ -->
-<div id="vista-planificacion">
+<div id="vista-planificacion" class="vista-oculta">
   <div class="plan-wrap">
     <div class="semana-nav">
       <button class="btn-semana" onclick="cambiarSemana(-1)">◀ Semana anterior</button>
@@ -217,8 +217,8 @@
     </div>
 
     <div id="plan-sin-datos" class="no-resultados" style="display:none">
-      No hay productos con producción ingresada o con stock bajo en esta semana.<br>
-      <small>Ingresa cantidades de producción en la pestaña "Stock y Producción" para ver la planificación.</small>
+      No hay productos con stock bajo (&lt;60 días) en este rango.<br><br>
+      <small><b>Oficinales:</b> aparecen si tienen menos de 60 días de stock (actual + producción).<br><b>Cápsulas:</b> aparecen cuando el operador ingresa producción en la pestaña "Stock y Producción".</small>
     </div>
   </div>
 </div>
@@ -275,11 +275,18 @@ function estadoAlerta(dias) {
 // NAVEGACIÓN DE VISTAS
 // ═══════════════════════════════════════════════════════
 function cambiarVista(vista, btn) {
-  document.getElementById('vista-stock').style.display = vista === 'stock' ? '' : 'none';
-  document.getElementById('vista-planificacion').style.display = vista === 'planificacion' ? '' : 'none';
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('activo'));
+  var vStock = document.getElementById('vista-stock');
+  var vPlan  = document.getElementById('vista-planificacion');
+  if (vista === 'stock') {
+    vStock.classList.remove('vista-oculta');
+    vPlan.classList.add('vista-oculta');
+  } else {
+    vStock.classList.add('vista-oculta');
+    vPlan.classList.remove('vista-oculta');
+    renderPlanificacion();
+  }
+  document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('activo'); });
   btn.classList.add('activo');
-  if (vista === 'planificacion') renderPlanificacion();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -451,25 +458,46 @@ function cambiarSemana(delta) {
 
 function renderPlanificacion() {
   const lunes = lunesDeSemana(semanaOffset);
-  const sabado = new Date(lunes); sabado.setDate(lunes.getDate()+5);
-  const dias = diasLaborales(lunes);
+  const sabado = new Date(lunes); sabado.setDate(lunes.getDate() + 5);
+  const diasSemana = diasLaborales(lunes);
   const hoy = new Date(); hoy.setHours(0,0,0,0);
 
   // Título
-  const tituloEl = document.getElementById('titulo-semana');
   const semLabel = semanaOffset === 0 ? ' (semana actual)' : semanaOffset === 1 ? ' (próxima semana)' : semanaOffset === -1 ? ' (semana pasada)' : '';
-  tituloEl.textContent = `${lunes.getDate()} ${MESES[lunes.getMonth()]} – ${sabado.getDate()} ${MESES[sabado.getMonth()]} ${sabado.getFullYear()}${semLabel}`;
+  document.getElementById('titulo-semana').textContent =
+    `${lunes.getDate()} ${MESES[lunes.getMonth()]} – ${sabado.getDate()} ${MESES[sabado.getMonth()]} ${sabado.getFullYear()}${semLabel}`;
 
-  // Calcular días desde HOY para cada producto
-  // Mostrar solo los que tienen días < 45 (relevantes en las próximas 6 semanas) o tienen producción ingresada
-  const productosPlan = PRODUCTOS
-    .filter(p => p.ventaPromedio > 0)
-    .map(p => {
-      const dias = calcularDias(p);
-      return { ...p, diasDisponibles: dias };
-    })
-    .filter(p => p.diasDisponibles !== null && p.diasDisponibles < 45)
-    .sort((a,b) => a.diasDisponibles - b.diasDisponibles);
+  // Días laborales de la semana en ms para comparar con hoy
+  // offsetDia[i] = cuántos días calendario hay desde HOY hasta el día i de esta semana
+  const offsetDias = diasSemana.map(d => Math.round((d - hoy) / 86400000));
+
+  // ── Construir lista de productos relevantes para esta semana ──
+  // Un producto es relevante si su stock se agota ANTES del final de la semana (sabado + 1 día)
+  // o si ya está agotado (diasDisp <= fin de semana en días).
+  // También incluimos productos con stock alto pero que son útiles de ver (< 60 días).
+  // CLAVE: para Cápsulas sin producción ingresada → diasDisp = 0 → se muestran siempre como agotadas.
+  // Filtramos esos para no saturar la planificación: solo mostramos cápsulas con producción > 0.
+
+  const finSemanaOffset = offsetDias[5] + 1; // día después del sábado
+
+  const productosPlan = [];
+  PRODUCTOS.forEach(function(p) {
+    if (p.ventaPromedio <= 0) return;
+    // Para cápsulas sin producción ingresada, omitir (no aportan info útil)
+    const cantProd = estadoProduccion[p.codigo + '_' + p.descripcion] || 0;
+    if (p.categoria === 'CÁPSULAS' && cantProd === 0) return;
+
+    const diasDisp = calcularDias(p);
+    if (diasDisp === null) return;
+
+    // Mostrar si se agota dentro de los próximos 60 días o ya está agotado
+    if (diasDisp > 60) return;
+
+    productosPlan.push({ p: p, diasDisp: diasDisp });
+  });
+
+  // Ordenar: primero los más urgentes (menos días disponibles)
+  productosPlan.sort(function(a, b) { return a.diasDisp - b.diasDisp; });
 
   const cal = document.getElementById('calendario');
   const sinDatos = document.getElementById('plan-sin-datos');
@@ -481,49 +509,45 @@ function renderPlanificacion() {
   }
   cal.style.display = '';
   sinDatos.style.display = 'none';
-
-  // Calcular qué día se agotará cada producto desde HOY
-  // diasDisponibles son días desde hoy. 
-  // Para la semana visualizada: offset de la semana en días desde hoy
-  const offsetInicioSemana = Math.round((lunes - hoy) / 86400000); // días desde hoy hasta el lunes
+  cal.style.gridTemplateColumns = '220px repeat(6, 1fr)';
 
   let html = '';
 
-  // Header
-  html += `<div class="cal-header prod-label">Producto</div>`;
-  dias.forEach((d, i) => {
+  // ── Encabezados de columnas ──
+  html += '<div class="cal-header prod-label">Producto</div>';
+  diasSemana.forEach(function(d) {
     const esHoy = d.getTime() === hoy.getTime();
-    html += `<div class="cal-header${esHoy?' hoy':''}">${fmtFechaCorta(d)}</div>`;
+    html += `<div class="cal-header${esHoy ? ' hoy' : ''}">${fmtFechaCorta(d)}</div>`;
   });
 
-  // Filas
-  productosPlan.forEach(p => {
-    const agotaDia = p.diasDisponibles; // días desde hoy en que se agota
+  // ── Filas de productos ──
+  productosPlan.forEach(function(item) {
+    const p = item.p;
+    const diasDisp = item.diasDisp; // días de stock desde HOY
 
+    const nomCorto = p.descripcion.replace(p.codigo + ' ', '').substring(0, 34);
     html += `<div class="cal-cell prod-nombre">
       <span class="codigo-chip" style="font-size:10px">${p.codigo}</span>
-      <small>${p.descripcion.replace(p.codigo+' ','').substring(0,32)}</small>
+      <small>${nomCorto}</small>
     </div>`;
 
-    dias.forEach((d, i) => {
+    diasSemana.forEach(function(d, i) {
       const esHoy = d.getTime() === hoy.getTime();
-      const diaEnRelacion = offsetInicioSemana + i; // días desde hoy que es este día de la semana
-      // Cuántos días de stock quedan en este día de la semana
-      const diasRestantes = agotaDia - diaEnRelacion;
+      const offsetEste = offsetDias[i]; // días desde hoy hasta este día de la semana
+      // ¿Cuántos días de stock quedan al INICIO de este día?
+      const restantes = diasDisp - offsetEste;
 
       let contenido = '';
-      let claseExtra = esHoy ? ' hoy-col' : '';
+      const claseExtra = esHoy ? ' hoy-col' : '';
 
-      if (diasRestantes <= 0) {
-        // Ya agotado
-        contenido = `<span class="pill-prod pill-critico">⚠ Agotado</span>`;
-      } else if (diasRestantes <= 1) {
-        // Se agota HOY o mañana
-        contenido = `<span class="pill-prod pill-critico">🔴 Vence hoy</span>`;
-      } else if (diasRestantes <= 4) {
-        contenido = `<span class="pill-prod pill-alerta">🟡 ${diasRestantes.toFixed(0)}d restantes</span>`;
+      if (restantes <= 0) {
+        contenido = '<span class="pill-prod pill-critico">⚠ Agotado</span>';
+      } else if (restantes < 1.5) {
+        contenido = '<span class="pill-prod pill-critico">🔴 Último día</span>';
+      } else if (restantes <= 5) {
+        contenido = `<span class="pill-prod pill-alerta">🟡 ${Math.ceil(restantes)}d</span>`;
       } else {
-        contenido = `<span class="pill-prod pill-estable" style="background:#E8F5EE;color:#2d7a4a">✓ ${diasRestantes.toFixed(0)}d</span>`;
+        contenido = `<span class="pill-prod pill-estable" style="background:#E8F5EE;color:#1A7A4A">✓ ${Math.ceil(restantes)}d</span>`;
       }
 
       html += `<div class="cal-cell dia-celda${claseExtra}">${contenido}</div>`;
@@ -531,8 +555,6 @@ function renderPlanificacion() {
   });
 
   cal.innerHTML = html;
-  // Ajustar columnas dinámicamente
-  cal.style.gridTemplateColumns = `220px repeat(6, 1fr)`;
 }
 
 // ═══════════════════════════════════════════════════════
