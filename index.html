@@ -230,6 +230,7 @@ td.c{text-align:center}
       </div>
     </div>
     <div id="desp-error" class="desp-error"></div>
+    <div style="margin-top:10px;background:#FEF0E7;border-left:3px solid var(--naranja);border-radius:0 var(--r) var(--r) 0;padding:7px 12px;font-size:11px;color:#7A3B0A">💡 <strong>Nuevo lote:</strong> Al ingresar nueva producción de un producto, sus despachos anteriores se eliminan automáticamente (pertenecían al lote previo). También puedes usar el botón <strong>🔄</strong> en la tabla para resetear un producto manualmente.</div>
   </div>
 
   <!-- CARDS RESUMEN -->
@@ -257,7 +258,7 @@ td.c{text-align:center}
         <th class="c">Stock Disponible</th>
         <th class="c">Días Disponibles</th>
         <th class="c">Hora</th>
-        <th class="c">Anular</th>
+        <th class="c">Acciones</th>
       </tr></thead>
       <tbody id="desp-body">
         <tr><td colspan="10" style="text-align:center;padding:30px;color:var(--suave)">No hay despachos registrados. Ingresa un código arriba para comenzar.</td></tr>
@@ -501,7 +502,16 @@ function updSt(inp){
 function updPr(inp){
   var idx=parseInt(inp.dataset.idx), p=P[idx];
   var val=Math.max(0,parseInt(inp.value)||0);
-  PR[pkey(p)]=val; save(); inp.classList.toggle('mod',val>0); refreshRow(idx,p);
+  var k=pkey(p);
+  var despAnteriores=DESP.filter(function(d){return d.pkey===k;});
+  // Si hay despachos de este producto y se está ingresando nueva producción
+  // → limpiar despachos porque corresponden a un lote anterior
+  if(val>0 && despAnteriores.length>0){
+    var totalAnulado=despAnteriores.reduce(function(a,d){return a+d.cantidad;},0);
+    DESP=DESP.filter(function(d){return d.pkey!==k;});
+    toast('🔄 Nuevo lote '+p.codigo+': '+totalAnulado+' u. despachadas del lote anterior eliminadas');
+  }
+  PR[k]=val; save(); inp.classList.toggle('mod',val>0); refreshRow(idx,p);
 }
 function refreshRow(idx,p){
   var d=diasCalc(p), e=estado(p);
@@ -625,6 +635,19 @@ function limpiarDespachos(){
   if(confirm('¿Eliminar todos los despachos registrados?')){DESP=[];save();renderDespachos();}
 }
 
+// Resetear despachos de un solo producto (nuevo lote)
+function resetLote(k){
+  var desp=DESP.filter(function(d){return d.pkey===k;});
+  if(!desp.length) return;
+  var nombre=desp[0].codigo;
+  var total=desp.reduce(function(a,d){return a+d.cantidad;},0);
+  if(confirm('¿Resetear lote de '+nombre+'?\nSe eliminarán '+total+' unidades despachadas de lotes anteriores.\nUsa esto cuando ya ingresaste nueva producción de este producto.')){
+    DESP=DESP.filter(function(d){return d.pkey!==k;});
+    save(); renderDespachos();
+    toast('🔄 Lote '+nombre+' reseteado — despachos anteriores eliminados');
+  }
+}
+
 function setDespFilt(f,btn){
   despFilt=f;
   document.querySelectorAll('[data-g="dfilt"]').forEach(function(b){b.classList.remove('on');});
@@ -673,8 +696,12 @@ function renderDespachos(){
       '<td class="c" style="font-weight:700;color:'+(stDisp<=0&&p?'var(--rojo)':'var(--texto)')+'">'+stDisp.toLocaleString('es-EC')+'</td>'+
       '<td class="c"><span style="font-weight:700;color:'+dColor+'">'+dStr+'</span></td>'+
       '<td class="c" style="font-size:11px;color:var(--suave)">'+d.hora+'</td>'+
-      '<td class="c"><button onclick="anularDespacho('+d.id+')" title="Anular despacho" '+
-        'style="padding:3px 8px;border:1.5px solid var(--rojo);border-radius:4px;background:#fff;color:var(--rojo);font-size:10px;font-weight:700;cursor:pointer">✕</button></td>'+
+      '<td class="c" style="white-space:nowrap">'+
+        '<button onclick="anularDespacho('+d.id+')" title="Anular este despacho" '+
+        'style="padding:3px 7px;border:1.5px solid var(--rojo);border-radius:4px;background:#fff;color:var(--rojo);font-size:10px;font-weight:700;cursor:pointer;margin-right:4px">✕</button>'+
+        '<button onclick="resetLote(\''+d.pkey+'\')" title="Resetear lote: eliminar todos los despachos de este producto" '+
+        'style="padding:3px 7px;border:1.5px solid var(--naranja);border-radius:4px;background:#fff;color:var(--naranja);font-size:10px;font-weight:700;cursor:pointer">🔄</button>'+
+        '</td>'+
       '</tr>';
   });
   document.getElementById('desp-body').innerHTML=rows;
